@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.dtalankin.threads.Caller;
 import com.dtalankin.threads.Callme;
+import com.dtalankin.threads.ExtSyncThread;
 import com.dtalankin.threads.ThreadOne;
 import com.dtalankin.threads.ThreadOneForSynch;
 import com.dtalankin.threads.ThreadThree;
@@ -18,6 +19,23 @@ import com.dtalankin.threads.ThreadTwoForSynch;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void task85() {
+        System.out.println("\n================================ Task #8.5");
+        List<Integer> array = new ArrayList<>();
+        ExtSyncThread threadOne = new ExtSyncThread(array, 1); // add to array
+        ExtSyncThread threadTwo = new ExtSyncThread(array, 2); // delete from array
+
+        try {
+            threadOne.thread.join();
+            threadTwo.thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        print("Exiting thread Main");
+
+    }
 
     @Test
     public void task84() {

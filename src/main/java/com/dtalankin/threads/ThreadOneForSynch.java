@@ -22,7 +22,9 @@ public class ThreadOneForSynch implements Runnable {
     public void run() {
         synchronized (array) {
             for (int i=0; i<10000; i++) {
-                array.add((int)(Math.random()*10000));
+                int num = (int)(Math.random()*10000);
+                array.add(num);
+//                System.out.println("num = " + num + " array size = " + array.size());
             }
         }
 
