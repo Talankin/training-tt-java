@@ -20,11 +20,13 @@ public class ThreadTwoForSynch implements Runnable {
     }
 
     public void run() {
-        synchronized (array) {
-            for (int i=0; i<10000; i++) {
-                int num = (int)(Math.random()*array.size());
-                array.remove(num);
+        for (int i=0; i<10000; i++) {
+            int num = (int)(Math.random()*array.size());
+            synchronized (array) {
 //                System.out.println("----------- num = " + num + " array size = " + array.size());
+                if (array.size() > 0) {
+                    array.remove(num);
+                }
             }
         }
         System.out.println("Exiting thread Two");

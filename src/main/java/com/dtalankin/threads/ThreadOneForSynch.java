@@ -20,12 +20,12 @@ public class ThreadOneForSynch implements Runnable {
     }
 
     public void run() {
-        synchronized (array) {
-            for (int i=0; i<10000; i++) {
-                int num = (int)(Math.random()*10000);
+        for (int i=0; i<10000; i++) {
+            int num = (int)(Math.random()*10000);
+            synchronized (array) {
                 array.add(num);
-//                System.out.println("num = " + num + " array size = " + array.size());
             }
+//                System.out.println("num = " + num + " array size = " + array.size());
         }
 
         System.out.println("Exiting thread One");
