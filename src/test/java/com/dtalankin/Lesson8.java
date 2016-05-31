@@ -24,12 +24,16 @@ public class Lesson8 {
     public void task85() {
         System.out.println("\n================================ Task #8.5");
         List<Integer> array = new ArrayList<>();
-        ExtSyncThread threadOne = new ExtSyncThread(array, 1); // add to array
-        ExtSyncThread threadTwo = new ExtSyncThread(array, 2); // delete from array
+        ExtSyncThread extSyncThread = new ExtSyncThread(array);
+
+        extSyncThread.runThreadOne();
+        extSyncThread.runThreadTwo();
+//        extSyncThread.thread1.run();
+//        extSyncThread.run();
 
         try {
-            threadOne.thread.join();
-            threadTwo.thread.join();
+            extSyncThread.thread1.join();
+            extSyncThread.thread2.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
