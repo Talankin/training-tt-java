@@ -6,11 +6,13 @@
 package com.dtalankin;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.dtalankin.threads.Caller;
 import com.dtalankin.threads.Callme;
-import com.dtalankin.threads.ExtSyncThread;
+import com.dtalankin.threads.ThreadForSyncList;
+import com.dtalankin.threads.ThreadWithSyncMethods;
 import com.dtalankin.threads.ThreadOne;
 import com.dtalankin.threads.ThreadOneForSynch;
 import com.dtalankin.threads.ThreadThree;
@@ -21,15 +23,33 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void task86() {
+        System.out.println("\n================================ Task #8.6");
+        List<Integer> list = new ArrayList<>();
+        List<Integer> syncList = Collections.synchronizedList(list);
+        ThreadForSyncList threadForSyncListsAdd = new ThreadForSyncList(syncList, 1, "adding");
+        ThreadForSyncList threadForSyncListsDel = new ThreadForSyncList(syncList, 2, "deleting");
+
+        try {
+            threadForSyncListsAdd.thread.join();
+            threadForSyncListsDel.thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        print("Exiting thread Main");
+
+    }
+
+    @Test
     public void task85() {
         System.out.println("\n================================ Task #8.5");
         List<Integer> array = new ArrayList<>();
-        ExtSyncThread extSyncThreadAdd = new ExtSyncThread(array, 1);
-        ExtSyncThread extSyncThreadDel = new ExtSyncThread(array, 2);
+        ThreadWithSyncMethods threadWithSyncMethodsAdd = new ThreadWithSyncMethods(array, 1, "adding");
+        ThreadWithSyncMethods threadWithSyncMethodsDel = new ThreadWithSyncMethods(array, 2, "deleting");
 
         try {
-            extSyncThreadAdd.thread.join();
-            extSyncThreadDel.thread.join();
+            threadWithSyncMethodsAdd.thread.join();
+            threadWithSyncMethodsDel.thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

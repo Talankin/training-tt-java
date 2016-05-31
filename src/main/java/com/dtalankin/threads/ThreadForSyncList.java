@@ -1,5 +1,5 @@
 /**
- *  30.05.2016
+ *  31.05.2016
  *  Dmitry Talankin
  */
 
@@ -8,16 +8,16 @@ package com.dtalankin.threads;
 
 import java.util.List;
 
-public class ExtSyncThread implements Runnable {
+public class ThreadForSyncList implements Runnable {
     private static final int ADD = 1;
     private static final int DELETE = 2;
     private int arrayOperation = 0;
     private List<Integer> array;
     public Thread thread;
 
-    public ExtSyncThread(List<Integer> array, int arrayOperation) {
+    public ThreadForSyncList(List<Integer> array, int arrayOperation, String name) {
         this.array = array;
-        thread = new Thread(this);
+        thread = new Thread(this, name);
         this.arrayOperation = arrayOperation;
         System.out.println("Child thread : " + thread);
         thread.start();
@@ -38,13 +38,13 @@ public class ExtSyncThread implements Runnable {
         System.out.println("Exiting child thread, " + thread);
     }
 
-    private synchronized void addInArray() {
+    private void addInArray() {
         int num = (int)(Math.random()*10000);
         array.add(num);
 //        System.out.println("num = " + num + " array size = " + array.size());
     }
 
-    private synchronized void deleteFromArray() {
+    private void deleteFromArray() {
         int num = (int)(Math.random()*array.size());
 //        System.out.println("----------- num = " + num + " array size = " + array.size());
         if (array.size() > 0) {
