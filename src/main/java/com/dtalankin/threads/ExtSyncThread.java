@@ -13,15 +13,14 @@ public class ExtSyncThread implements Runnable {
     private static final int DELETE = 2;
     private int arrayOperation = 0;
     private List<Integer> array;
-    public Thread thread1;
-    public Thread thread2;
+    public Thread thread;
 
-    public ExtSyncThread(List<Integer> array) {
+    public ExtSyncThread(List<Integer> array, int arrayOperation) {
         this.array = array;
-//        thread = new Thread(this);
-//        this.arrayOperation = arrayOperation;
-//        System.out.println("Child thread : " + thread);
-//        thread.start();
+        thread = new Thread(this);
+        this.arrayOperation = arrayOperation;
+        System.out.println("Child thread : " + thread);
+        thread.start();
     }
 
     public void run() {
@@ -36,32 +35,18 @@ public class ExtSyncThread implements Runnable {
         } else {
             System.out.println("There are not actions on array");
         }
-        System.out.println("Exiting child thread");
-    }
-
-    public void runThreadOne() {
-        arrayOperation = ADD;
-        thread1 = new Thread(this);
-        System.out.println("Child thread one : " + thread1);
-        thread1.start();
-    }
-
-    public void runThreadTwo() {
-        arrayOperation = DELETE;
-        thread2 = new Thread(this);
-        System.out.println("Child thread two : " + thread2);
-        thread2.start();
+        System.out.println("Exiting child thread, " + thread);
     }
 
     private synchronized void addInArray() {
         int num = (int)(Math.random()*10000);
         array.add(num);
-        System.out.println("num = " + num + " array size = " + array.size());
+//        System.out.println("num = " + num + " array size = " + array.size());
     }
 
     private synchronized void deleteFromArray() {
         int num = (int)(Math.random()*array.size());
-        System.out.println("----------- num = " + num + " array size = " + array.size());
+//        System.out.println("----------- num = " + num + " array size = " + array.size());
         if (array.size() > 0) {
             array.remove(num);
         }
