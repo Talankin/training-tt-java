@@ -8,10 +8,13 @@ package com.dtalankin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import com.dtalankin.threads.Caller;
 import com.dtalankin.threads.Callme;
+import com.dtalankin.threads.MessageForSemaphore;
 import com.dtalankin.threads.ThreadForSyncList;
+import com.dtalankin.threads.ThreadWithSemaphore;
 import com.dtalankin.threads.ThreadWithSyncMethods;
 import com.dtalankin.threads.ThreadOne;
 import com.dtalankin.threads.ThreadOneForSynch;
@@ -21,6 +24,23 @@ import com.dtalankin.threads.ThreadTwoForSynch;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void task87() {
+        System.out.println("\n================================ Task #8.7");
+        Semaphore semaphore = new Semaphore(1);
+        MessageForSemaphore messageObject = new MessageForSemaphore();
+        ThreadWithSemaphore threadPing = new ThreadWithSemaphore(semaphore, messageObject, "Ping");
+        ThreadWithSemaphore threadPong = new ThreadWithSemaphore(semaphore, messageObject, "Pong");
+
+        try {
+            threadPing.thread.join();
+            threadPong.thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        print("Exiting thread Main");
+    }
 
     @Test
     public void task86() {
