@@ -13,6 +13,9 @@ import java.util.concurrent.Semaphore;
 import com.dtalankin.threads.Caller;
 import com.dtalankin.threads.Callme;
 import com.dtalankin.threads.MessageForSemaphore;
+import com.dtalankin.threads.Thread102;
+import com.dtalankin.threads.Thread104;
+import com.dtalankin.threads.Thread106;
 import com.dtalankin.threads.ThreadForSyncList;
 import com.dtalankin.threads.ThreadWithSemaphore;
 import com.dtalankin.threads.ThreadWithSyncMethods;
@@ -21,9 +24,116 @@ import com.dtalankin.threads.ThreadOneForSynch;
 import com.dtalankin.threads.ThreadThree;
 import com.dtalankin.threads.ThreadTwo;
 import com.dtalankin.threads.ThreadTwoForSynch;
+import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void example106() {
+        Thread106 t1 = new Thread106("Thread 1");
+        Thread106 t2 = new Thread106("Thread 2");
+        Thread106 t3 = new Thread106("Thread 3");
+
+        print("Thread 1 is alive " + t1.getT().isAlive());
+        print("Thread 2 is alive " + t2.getT().isAlive());
+        print("Thread 3 is alive " + t3.getT().isAlive());
+        try {
+            t1.getT().join();
+            t2.getT().join();
+            t3.getT().join();
+        } catch (InterruptedException e) {
+            print("Main thread has interrupted");
+        }
+        print("Thread 1 is alive " + t1.getT().isAlive());
+        print("Thread 2 is alive " + t2.getT().isAlive());
+        print("Thread 3 is alive " + t3.getT().isAlive());
+
+        print("Exiting main thread");
+    }
+
+
+    @Test
+    public void example104() {
+        new Thread104(6);
+
+        try {
+            for(int i=1; i<6; i++) {
+                print("Main thread is working " + i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            print("Main thread has interrupted");
+        }
+        print("Exiting main thread");
+    }
+
+
+    @Test
+    public void example103() {
+        Runnable runnable = ()-> {
+            try {
+                for(int i=1; i<6; i++) {
+                    print("Child thread is working " + i);
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                print("Child thread has interrupted");
+            }
+            print("Exiting child thread");
+        };
+
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    for(int i=1; i<6; i++) {
+//                        print("Child thread is working " + i);
+//                        Thread.sleep(500);
+//                    }
+//                } catch (InterruptedException e) {
+//                    print("Child thread has interrupted");
+//                }
+//                print("Exiting child thread");
+//            }
+//        };
+
+        new Thread(runnable, "Child thread").start();
+
+        try {
+            for(int i=1; i<6; i++) {
+                print("Main thread is working " + i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            print("Main thread has interrupted");
+        }
+        print("Exiting main thread");
+    }
+
+    @Test
+    public void example102() {
+        new Thread102();
+
+        try {
+            for(int i=1; i < 6; i++) {
+                print("Main thread " + i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            print("Main thread interrupted");
+        }
+        print("Exiting main thread");
+    }
+
+
+/**
+    ***********************************************
+    I start lessons 8-10 again. These will be above.
+    15.10.2016
+    ***********************************************
+*/
+
 
     @Test
     public void task87() {
@@ -212,11 +322,6 @@ public class Lesson8 {
         }
         System.out.println("Main thread exiting.");
     }
-
-    private void print(Object printString) {
-        System.out.println(printString);
-    }
-
 }
 
 class ExtThread extends Thread {
