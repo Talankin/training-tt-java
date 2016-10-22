@@ -6,12 +6,16 @@
 package com.dtalankin;
 
 import com.dtalankin.figures.*;
+import com.dtalankin.threads.Thread106;
+
+import static com.dtalankin.Print.print;
 
 public class Main {
     public static void main(String[] args) {
-
+        Thread106 t1 = new Thread106("Thread 1");
+        print("Thread 1 is alive " + t1.getT().isAlive());
+        print("Exiting main thread");
     }
-
 
     //рекурсия - факториал
     class fact {

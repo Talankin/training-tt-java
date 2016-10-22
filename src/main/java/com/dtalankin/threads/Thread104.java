@@ -11,7 +11,7 @@ public class Thread104 extends Thread {
     private int num;
 
     public Thread104(int num) {
-
+        super("This is child thread");
         this.num = num;
         print("Child thread starts");
         start();

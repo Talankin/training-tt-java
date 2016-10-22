@@ -17,6 +17,9 @@ import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
 import com.dtalankin.threads.ThreadForSyncList;
+import com.dtalankin.threads.ThreadOneForTask83;
+import com.dtalankin.threads.ThreadThreeForTask83;
+import com.dtalankin.threads.ThreadTwoForTask83;
 import com.dtalankin.threads.ThreadWithSemaphore;
 import com.dtalankin.threads.ThreadWithSyncMethods;
 import com.dtalankin.threads.ThreadOne;
@@ -28,6 +31,57 @@ import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void newTask83() {
+        ThreadOneForTask83 t1 = new ThreadOneForTask83();
+        ThreadTwoForTask83 t2 = new ThreadTwoForTask83();
+        ThreadThreeForTask83 t3 = new ThreadThreeForTask83();
+
+        try {
+            for (int i = 1; i < 6; i++) {
+                print("Main Thread " + " n = " + i);
+                Thread.sleep(500);
+            }
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (InterruptedException e) {
+            print("Main Thread interrupted");
+        }
+        print("Exiting main thread");
+    }
+
+
+    @Test
+    public void newTask82() {
+        Thread106 t1 = new Thread106("Thread 1");
+
+        try {
+            t1.getT().join();
+        } catch (InterruptedException e) {
+            print("Main thread has interrupted");
+        }
+
+        print("Exiting main thread");
+    }
+
+    @Test
+    public void issue81(){
+        Thread106 t1 = new Thread106("Thread 1");
+        print("Thread 1 is alive " + t1.getT().isAlive());
+        print("Thread 1 isInterrupted " + t1.getT().isInterrupted());
+        print("Thread 1 getState " + t1.getT().getState());
+        print("Thread 1 getName " + t1.getT().getName());
+        print("Thread 1 getId " + t1.getT().getId());
+        print("Thread 1 getPriority " + t1.getT().getPriority());
+        print("Thread 1 getStackTrace().length " + t1.getT().getStackTrace().length);
+        print("Thread 1 isDaemon " + t1.getT().isDaemon());
+        print("Thread 1 is alive " + t1.getT().isAlive());
+
+        print("Exiting main thread");
+
+    }
 
     @Test
     public void example106() {
@@ -55,7 +109,9 @@ public class Lesson8 {
 
     @Test
     public void example104() {
-        new Thread104(6);
+        Thread104 t1 = new Thread104(6);
+        print(t1);
+        print("Name is " + t1.getName());
 
         try {
             for(int i=1; i<6; i++) {
