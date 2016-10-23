@@ -11,8 +11,14 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import com.dtalankin.threads.Caller;
+import com.dtalankin.threads.Caller107;
+import com.dtalankin.threads.Caller108;
 import com.dtalankin.threads.Callme;
+import com.dtalankin.threads.Callme107;
+import com.dtalankin.threads.Consumer109;
 import com.dtalankin.threads.MessageForSemaphore;
+import com.dtalankin.threads.Producer109;
+import com.dtalankin.threads.Product109;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
@@ -31,6 +37,52 @@ import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void example109() {
+        // Inner synchronized section in Product109
+        Product109 product = new Product109();
+        Producer109 producer = new Producer109(product);
+        Consumer109 consumer109 = new Consumer109(product);
+
+        print("Type Ctrl+C to stop programm");
+    }
+
+
+        @Test
+    public void example108() {
+        // Outer synchronized section in Caller108
+        Callme107 callme = new Callme107();
+        Caller108 caller1 = new Caller108(callme, "Hello", "Thread 1");
+        Caller108 caller2 = new Caller108(callme, "Synchronized", "Thread 2");
+        Caller108 caller3 = new Caller108(callme, "World", "Thread 3");
+
+        try {
+            caller1.join();
+            caller2.join();
+            caller3.join();
+        } catch (InterruptedException e) {
+            print("Interrupted");
+        }
+    }
+
+
+    @Test
+    public void newExample107() {
+        Callme107 callme = new Callme107();
+        Caller107 caller1 = new Caller107(callme, "Hello", "Thread 1");
+        Caller107 caller2 = new Caller107(callme, "Synchronized", "Thread 2");
+        Caller107 caller3 = new Caller107(callme, "World", "Thread 3");
+
+        try {
+            caller1.join();
+            caller2.join();
+            caller3.join();
+        } catch (InterruptedException e) {
+            print("Interrupted");
+        }
+    }
+
 
     @Test
     public void newTask83() {
@@ -67,7 +119,7 @@ public class Lesson8 {
     }
 
     @Test
-    public void issue81(){
+    public void newTask81(){
         Thread106 t1 = new Thread106("Thread 1");
         print("Thread 1 is alive " + t1.getT().isAlive());
         print("Thread 1 isInterrupted " + t1.getT().isInterrupted());
