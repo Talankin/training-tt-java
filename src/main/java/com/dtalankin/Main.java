@@ -5,20 +5,19 @@
 
 package com.dtalankin;
 
+import java.util.concurrent.Semaphore;
+
 import com.dtalankin.figures.*;
-import com.dtalankin.threads.Consumer109;
-import com.dtalankin.threads.Producer109;
-import com.dtalankin.threads.Product109;
+import com.dtalankin.threads.DecreaseThread111;
+import com.dtalankin.threads.IncreaseThread111;
 
 import static com.dtalankin.Print.print;
 
 public class Main {
     public static void main(String[] args) {
-        Product109 product = new Product109();
-        Producer109 producer = new Producer109(product);
-        Consumer109 consumer109 = new Consumer109(product);
-
-        print("Type Ctrl+C to stop programm");
+        Semaphore semaphore = new Semaphore(1);
+        IncreaseThread111 incThread = new IncreaseThread111(semaphore, "A (inc)");
+        DecreaseThread111 decThread = new DecreaseThread111(semaphore, "B (dec)");
     }
 
     //рекурсия - факториал

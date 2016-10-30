@@ -16,9 +16,14 @@ import com.dtalankin.threads.Caller108;
 import com.dtalankin.threads.Callme;
 import com.dtalankin.threads.Callme107;
 import com.dtalankin.threads.Consumer109;
+import com.dtalankin.threads.Consumer110;
+import com.dtalankin.threads.DecreaseThread111;
+import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
 import com.dtalankin.threads.Producer109;
+import com.dtalankin.threads.Producer110;
 import com.dtalankin.threads.Product109;
+import com.dtalankin.threads.Product110;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
@@ -37,6 +42,22 @@ import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+
+    @Test
+    public void example111() {
+        Semaphore semaphore = new Semaphore(1);
+        IncreaseThread111 incThread = new IncreaseThread111(semaphore, "A (inc)");
+        DecreaseThread111 decThread = new DecreaseThread111(semaphore, "B (dec)");
+    }
+
+    @Test
+    public void example110() {
+        // Inner synchronized section in Product110
+        Product110 product = new Product110();
+        Producer110 producer = new Producer110(product);
+        Consumer110 consumer = new Consumer110(product);
+    }
 
     @Test
     public void example109() {
