@@ -17,13 +17,16 @@ import com.dtalankin.threads.Callme;
 import com.dtalankin.threads.Callme107;
 import com.dtalankin.threads.Consumer109;
 import com.dtalankin.threads.Consumer110;
+import com.dtalankin.threads.Consumer112;
 import com.dtalankin.threads.DecreaseThread111;
 import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
 import com.dtalankin.threads.Producer109;
 import com.dtalankin.threads.Producer110;
+import com.dtalankin.threads.Producer112;
 import com.dtalankin.threads.Product109;
 import com.dtalankin.threads.Product110;
+import com.dtalankin.threads.Product112;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
@@ -45,6 +48,13 @@ public class Lesson8 {
 
 
     @Test
+    public void example112() {
+//        Product112 product = new Product112();
+//        Producer112 producer = new Producer112(product);
+//        Consumer112 consumer = new Consumer112(product);
+    }
+
+        @Test
     public void example111() {
         Semaphore semaphore = new Semaphore(1);
         IncreaseThread111 incThread = new IncreaseThread111(semaphore, "A (inc)");

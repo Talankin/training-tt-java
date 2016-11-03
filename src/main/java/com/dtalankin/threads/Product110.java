@@ -36,6 +36,6 @@ public class Product110 {
         this.n = n;
         print("Put n = " + this.n);
         valueSet = true;
-//        notify();
+        notify();
     }
 }
