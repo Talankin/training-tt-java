@@ -17,7 +17,7 @@ public class Producer112 implements Runnable {
 
     @Override
     public void run() {
-        int n = 0;
+        int n = 1;
         while (true) {
             product.put(n++);
         }
