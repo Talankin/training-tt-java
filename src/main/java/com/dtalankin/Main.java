@@ -8,18 +8,17 @@ package com.dtalankin;
 import java.util.concurrent.Semaphore;
 
 import com.dtalankin.figures.*;
-import com.dtalankin.threads.ConsumerSemLamb;
-import com.dtalankin.threads.ProducerSemLamb;
-import com.dtalankin.threads.ProductSemLamb;
+import com.dtalankin.threads.ConsumerExtThread;
+import com.dtalankin.threads.ProducerExtThread;
+import com.dtalankin.threads.ProductExtThread;
 
 import static com.dtalankin.Print.print;
 
 public class Main {
     public static void main(String[] args) {
-        ProductSemLamb product = new ProductSemLamb();
-        ProducerSemLamb producer = new ProducerSemLamb(product);
-        ConsumerSemLamb consumer = new ConsumerSemLamb(product);
-
+        ProductExtThread product = new ProductExtThread();
+        ProducerExtThread producer = new ProducerExtThread(product);
+        ConsumerExtThread consumer = new ConsumerExtThread(product);
     }
 
     //рекурсия - факториал
