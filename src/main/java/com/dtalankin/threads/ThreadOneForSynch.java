@@ -25,10 +25,7 @@ public class ThreadOneForSynch implements Runnable {
             synchronized (array) {
                 array.add(num);
             }
-//                System.out.println("num = " + num + " array size = " + array.size());
         }
-
         System.out.println("Exiting thread One");
     }
-
 }

@@ -20,6 +20,7 @@ import com.dtalankin.threads.Consumer110;
 import com.dtalankin.threads.Consumer112;
 import com.dtalankin.threads.ConsumerExtThread;
 import com.dtalankin.threads.ConsumerSemLamb;
+import com.dtalankin.threads.ConsumerTask84;
 import com.dtalankin.threads.DecreaseThread111;
 import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
@@ -28,6 +29,7 @@ import com.dtalankin.threads.Producer110;
 import com.dtalankin.threads.Producer112;
 import com.dtalankin.threads.ProducerExtThread;
 import com.dtalankin.threads.ProducerSemLamb;
+import com.dtalankin.threads.ProducerTask84;
 import com.dtalankin.threads.Product109;
 import com.dtalankin.threads.Product110;
 import com.dtalankin.threads.Product112;
@@ -52,6 +54,19 @@ import org.junit.Test;
 
 public class Lesson8 {
 
+    @Test
+    public void newTask84() {
+        ArrayList<Integer> array = new ArrayList<>();
+        ProducerTask84 prod = new ProducerTask84(array);
+        ConsumerTask84 cons = new ConsumerTask84(array);
+
+        try {
+            prod.t.join();
+            cons.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void exampleExtandsThreadSemaphor() {
