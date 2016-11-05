@@ -55,6 +55,11 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void newTask85() {
+
+    }
+
+    @Test
     public void newTask84() {
         ArrayList<Integer> array = new ArrayList<>();
         ProducerTask84 prod = new ProducerTask84(array);

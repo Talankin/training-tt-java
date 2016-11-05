@@ -9,16 +9,13 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 import com.dtalankin.figures.*;
-import com.dtalankin.threads.ConsumerTask84;
-import com.dtalankin.threads.ProducerTask84;
-
 import static com.dtalankin.Print.print;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Integer> array = new ArrayList<>();
-        ProducerTask84 prod = new ProducerTask84(array);
-        ConsumerTask84 cons = new ConsumerTask84(array);
+
+
     }
 
     //рекурсия - факториал
