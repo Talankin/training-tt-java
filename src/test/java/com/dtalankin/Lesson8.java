@@ -18,15 +18,18 @@ import com.dtalankin.threads.Callme107;
 import com.dtalankin.threads.Consumer109;
 import com.dtalankin.threads.Consumer110;
 import com.dtalankin.threads.Consumer112;
+import com.dtalankin.threads.ConsumerSemLamb;
 import com.dtalankin.threads.DecreaseThread111;
 import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
 import com.dtalankin.threads.Producer109;
 import com.dtalankin.threads.Producer110;
 import com.dtalankin.threads.Producer112;
+import com.dtalankin.threads.ProducerSemLamb;
 import com.dtalankin.threads.Product109;
 import com.dtalankin.threads.Product110;
 import com.dtalankin.threads.Product112;
+import com.dtalankin.threads.ProductSemLamb;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
@@ -48,10 +51,24 @@ public class Lesson8 {
 
 
     @Test
+    public void exampleLambdaSemaphore() {
+        ProductSemLamb product = new ProductSemLamb();
+        ProducerSemLamb producer = new ProducerSemLamb(product);
+        ConsumerSemLamb consumer = new ConsumerSemLamb(product);
+
+        try {
+            consumer.t.join();
+            producer.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void example112() {
-//        Product112 product = new Product112();
-//        Producer112 producer = new Producer112(product);
-//        Consumer112 consumer = new Consumer112(product);
+        Product112 product = new Product112();
+        Producer112 producer = new Producer112(product);
+        Consumer112 consumer = new Consumer112(product);
     }
 
         @Test
