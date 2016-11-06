@@ -35,11 +35,13 @@ import com.dtalankin.threads.Product110;
 import com.dtalankin.threads.Product112;
 import com.dtalankin.threads.ProductExtThread;
 import com.dtalankin.threads.ProductSemLamb;
+import com.dtalankin.threads.ProductTask85;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
 import com.dtalankin.threads.ThreadForSyncList;
 import com.dtalankin.threads.ThreadOneForTask83;
+import com.dtalankin.threads.ThreadTask85;
 import com.dtalankin.threads.ThreadThreeForTask83;
 import com.dtalankin.threads.ThreadTwoForTask83;
 import com.dtalankin.threads.ThreadWithSemaphore;
@@ -56,7 +58,17 @@ public class Lesson8 {
 
     @Test
     public void newTask85() {
+        ArrayList<Integer> array = new ArrayList<>();
+        ProductTask85 product = new ProductTask85(array);
+        ThreadTask85 threadAdd = new ThreadTask85("A", "ADD", product);
+        ThreadTask85 threadRem = new ThreadTask85("B", "REMOVE", product);
 
+        try {
+            threadAdd.join();
+            threadRem.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
