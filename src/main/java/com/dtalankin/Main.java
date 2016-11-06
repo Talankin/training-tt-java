@@ -6,20 +6,15 @@
 package com.dtalankin;
 
 import java.util.ArrayList;
-import java.util.concurrent.Semaphore;
 
 import com.dtalankin.figures.*;
-import com.dtalankin.threads.ProductTask85;
 import com.dtalankin.threads.ThreadTask85;
-
-import static com.dtalankin.Print.print;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Integer> array = new ArrayList<>();
-        ProductTask85 product = new ProductTask85(array);
-        ThreadTask85 threadAdd = new ThreadTask85("A", "ADD", product);
-        ThreadTask85 threadRem = new ThreadTask85("B", "REMOVE", product);
+        ThreadTask85 threadAdd = new ThreadTask85(array, "A", "ADD");
+        ThreadTask85 threadRem = new ThreadTask85(array, "B", "REMOVE");
     }
 
     //рекурсия - факториал
