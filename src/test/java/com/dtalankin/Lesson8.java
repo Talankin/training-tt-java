@@ -41,6 +41,7 @@ import com.dtalankin.threads.Thread106;
 import com.dtalankin.threads.ThreadForSyncList;
 import com.dtalankin.threads.ThreadOneForTask83;
 import com.dtalankin.threads.ThreadTask85;
+import com.dtalankin.threads.ThreadTask86;
 import com.dtalankin.threads.ThreadThreeForTask83;
 import com.dtalankin.threads.ThreadTwoForTask83;
 import com.dtalankin.threads.ThreadWithSemaphore;
@@ -57,7 +58,25 @@ public class Lesson8 {
 
     @Test
     public void newTask86() {
+        /**
+         * we have to sinchronize a list and sinchronize the methods too,
+         * otherwise the result can has non-deterministic behavior
+         */
+        List<Integer> array = new ArrayList<>();
+        List<Integer> syncArray = Collections.synchronizedList(array);
+
+        ThreadTask86 threadAdd = new ThreadTask86(syncArray, "ADD");
+        ThreadTask86 threadRem = new ThreadTask86(syncArray, "REMOVE");
+
+        try {
+            threadAdd.join();
+            threadRem.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
+
     @Test
     public void newTask85() {
         ArrayList<Integer> array = new ArrayList<>();
