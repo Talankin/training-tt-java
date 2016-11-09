@@ -26,6 +26,9 @@ import com.dtalankin.threads.ConsumerTask86;
 import com.dtalankin.threads.DecreaseThread111;
 import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
+import com.dtalankin.threads.PingPong87;
+import com.dtalankin.threads.PingThread87;
+import com.dtalankin.threads.PongThread87;
 import com.dtalankin.threads.Producer109;
 import com.dtalankin.threads.Producer110;
 import com.dtalankin.threads.Producer112;
@@ -59,6 +62,21 @@ import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void newTask87() {
+        PingPong87 pingPong = new PingPong87();
+        PingThread87 ping = new PingThread87(pingPong);
+        PongThread87 pong = new PongThread87(pingPong);
+
+        try {
+            ping.t.join();
+            pong.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void newTask86() {
