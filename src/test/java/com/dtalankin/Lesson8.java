@@ -21,6 +21,8 @@ import com.dtalankin.threads.Consumer112;
 import com.dtalankin.threads.ConsumerExtThread;
 import com.dtalankin.threads.ConsumerSemLamb;
 import com.dtalankin.threads.ConsumerTask84;
+import com.dtalankin.threads.ConsumerTask85;
+import com.dtalankin.threads.ConsumerTask86;
 import com.dtalankin.threads.DecreaseThread111;
 import com.dtalankin.threads.IncreaseThread111;
 import com.dtalankin.threads.MessageForSemaphore;
@@ -30,18 +32,20 @@ import com.dtalankin.threads.Producer112;
 import com.dtalankin.threads.ProducerExtThread;
 import com.dtalankin.threads.ProducerSemLamb;
 import com.dtalankin.threads.ProducerTask84;
+import com.dtalankin.threads.ProducerTask86;
 import com.dtalankin.threads.Product109;
 import com.dtalankin.threads.Product110;
 import com.dtalankin.threads.Product112;
 import com.dtalankin.threads.ProductExtThread;
 import com.dtalankin.threads.ProductSemLamb;
+import com.dtalankin.threads.ProductTask85;
+import com.dtalankin.threads.ProductTask86;
 import com.dtalankin.threads.Thread102;
 import com.dtalankin.threads.Thread104;
 import com.dtalankin.threads.Thread106;
 import com.dtalankin.threads.ThreadForSyncList;
 import com.dtalankin.threads.ThreadOneForTask83;
-import com.dtalankin.threads.ThreadTask85;
-import com.dtalankin.threads.ThreadTask86;
+import com.dtalankin.threads.ProducerTask85;
 import com.dtalankin.threads.ThreadThreeForTask83;
 import com.dtalankin.threads.ThreadTwoForTask83;
 import com.dtalankin.threads.ThreadWithSemaphore;
@@ -60,17 +64,21 @@ public class Lesson8 {
     public void newTask86() {
         /**
          * we have to sinchronize a list and sinchronize the methods too,
-         * otherwise the result can has non-deterministic behavior
+         * otherwise the result can has non-deterministic behavior.
+         * But P.L.Dvorkin said we are not waiting deterministic behaviour.
+         * The main idea - difference working with list.
          */
         List<Integer> array = new ArrayList<>();
         List<Integer> syncArray = Collections.synchronizedList(array);
 
-        ThreadTask86 threadAdd = new ThreadTask86(syncArray, "ADD");
-        ThreadTask86 threadRem = new ThreadTask86(syncArray, "REMOVE");
+        ProductTask86 prod = new ProductTask86(syncArray);
+
+        ProducerTask86 producer = new ProducerTask86(prod);
+        ConsumerTask86 consumer = new ConsumerTask86(prod);
 
         try {
-            threadAdd.join();
-            threadRem.join();
+            producer.join();
+            consumer.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -79,13 +87,16 @@ public class Lesson8 {
 
     @Test
     public void newTask85() {
+        // we need cover the array by class with synchronized methods
         ArrayList<Integer> array = new ArrayList<>();
-        ThreadTask85 threadAdd = new ThreadTask85(array, "A", "ADD");
-        ThreadTask85 threadRem = new ThreadTask85(array, "B", "REMOVE");
+        ProductTask85 prod = new ProductTask85(array);
+
+        ProducerTask85 producer = new ProducerTask85(prod);
+        ConsumerTask85 consumer = new ConsumerTask85(prod);
 
         try {
-            threadAdd.join();
-            threadRem.join();
+            producer.join();
+            consumer.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

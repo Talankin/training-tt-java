@@ -8,13 +8,10 @@ package com.dtalankin;
 import java.util.ArrayList;
 
 import com.dtalankin.figures.*;
-import com.dtalankin.threads.ThreadTask85;
+import com.dtalankin.threads.ProducerTask85;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Integer> array = new ArrayList<>();
-        ThreadTask85 threadAdd = new ThreadTask85(array, "A", "ADD");
-        ThreadTask85 threadRem = new ThreadTask85(array, "B", "REMOVE");
     }
 
     //рекурсия - факториал
