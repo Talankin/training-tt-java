@@ -10,58 +10,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import com.dtalankin.threads.Caller;
-import com.dtalankin.threads.Caller107;
-import com.dtalankin.threads.Caller108;
-import com.dtalankin.threads.Callme;
-import com.dtalankin.threads.Callme107;
-import com.dtalankin.threads.Consumer109;
-import com.dtalankin.threads.Consumer110;
-import com.dtalankin.threads.Consumer112;
-import com.dtalankin.threads.ConsumerExtThread;
-import com.dtalankin.threads.ConsumerSemLamb;
-import com.dtalankin.threads.ConsumerTask84;
-import com.dtalankin.threads.ConsumerTask85;
-import com.dtalankin.threads.ConsumerTask86;
-import com.dtalankin.threads.DecreaseThread111;
-import com.dtalankin.threads.IncreaseThread111;
-import com.dtalankin.threads.MessageForSemaphore;
-import com.dtalankin.threads.PingPong87;
-import com.dtalankin.threads.PingThread87;
-import com.dtalankin.threads.PongThread87;
-import com.dtalankin.threads.Producer109;
-import com.dtalankin.threads.Producer110;
-import com.dtalankin.threads.Producer112;
-import com.dtalankin.threads.ProducerExtThread;
-import com.dtalankin.threads.ProducerSemLamb;
-import com.dtalankin.threads.ProducerTask84;
-import com.dtalankin.threads.ProducerTask86;
-import com.dtalankin.threads.Product109;
-import com.dtalankin.threads.Product110;
-import com.dtalankin.threads.Product112;
-import com.dtalankin.threads.ProductExtThread;
-import com.dtalankin.threads.ProductSemLamb;
-import com.dtalankin.threads.ProductTask85;
-import com.dtalankin.threads.ProductTask86;
-import com.dtalankin.threads.Thread102;
-import com.dtalankin.threads.Thread104;
-import com.dtalankin.threads.Thread106;
-import com.dtalankin.threads.ThreadForSyncList;
-import com.dtalankin.threads.ThreadOneForTask83;
-import com.dtalankin.threads.ProducerTask85;
-import com.dtalankin.threads.ThreadThreeForTask83;
-import com.dtalankin.threads.ThreadTwoForTask83;
-import com.dtalankin.threads.ThreadWithSemaphore;
-import com.dtalankin.threads.ThreadWithSyncMethods;
-import com.dtalankin.threads.ThreadOne;
-import com.dtalankin.threads.ThreadOneForSynch;
-import com.dtalankin.threads.ThreadThree;
-import com.dtalankin.threads.ThreadTwo;
-import com.dtalankin.threads.ThreadTwoForSynch;
+import com.dtalankin.threads.*;
+
 import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void task88() {
+        Book88 book = new Book88();
+        Reader88 reader = new Reader88(book);
+        Writer88 writer = new Writer88(book);
+
+        try {
+            reader.join();
+            writer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void newTask87() {
