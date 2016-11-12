@@ -8,6 +8,8 @@ package com.dtalankin;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 
 import com.dtalankin.threads.*;
@@ -16,6 +18,41 @@ import static com.dtalankin.Print.*;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void lesson114() {
+        CyclicBarrier barrier = new CyclicBarrier(3, new ThreadBarAction114());
+        Thread114 thread1 = new Thread114(barrier, "A", 5000);
+        Thread114 thread2 = new Thread114(barrier, "B", 10000);
+        Thread114 thread3 = new Thread114(barrier, "C", 8000);
+
+        try {
+            thread1.t.join();
+            thread2.t.join();
+            thread3.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void lesson113() {
+        CountDownLatch latch = new CountDownLatch(20);
+        print("CountDown starting...");
+        ThreadOne113 thread1 = new ThreadOne113(latch);
+        ThreadTwo113 thread2 = new ThreadTwo113(latch);
+
+        try {
+            thread1.join();
+            print("Thread 1 has been done");
+            thread2.join();
+            print("Thread 2 has been done");
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        print("Main thread has been done");
+    }
 
     @Test
     public void task88() {
