@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.dtalankin.exceptions.TraineeException;
 import com.dtalankin.threads.*;
@@ -52,6 +53,21 @@ public class Lesson8 {
         try {
             listReverter.t.join();
             listShifter.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void lesson116() {
+        ReentrantLock lock = new ReentrantLock();
+        LockThread116 lockThreadA = new LockThread116("A", lock);
+        LockThreadB116 lockThreadB = new LockThreadB116("B", lock);
+
+        try {
+            lockThreadA.t.join();
+            lockThreadB.t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
