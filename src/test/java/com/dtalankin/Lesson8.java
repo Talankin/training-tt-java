@@ -10,14 +10,68 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Exchanger;
 import java.util.concurrent.Semaphore;
 
+import com.dtalankin.exceptions.TraineeException;
 import com.dtalankin.threads.*;
 
 import static com.dtalankin.Print.*;
+
+import com.dtalankin.trainees.Trainee;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void task89From710_1() {
+//        List<Trainee> trainees = new ArrayList<>();
+        List<Trainee> listTrainees = new ArrayList<>();
+//        List<Trainee> trainees = new LinkedList<>();
+        List<Trainee> trainees = Collections.synchronizedList(listTrainees);
+
+            try {
+//                trainees.add(new Trainee("Jeky", "Chan", 4));
+//                trainees.add(new Trainee("Silvester", "Stalone", 3));
+//                trainees.add(new Trainee("Chack", "Norris", 1));
+//                trainees.add(new Trainee("Dmitry", "Talankin", 4));
+//                trainees.add(new Trainee("Vladimir", "Putin", 4));
+//                trainees.add(new Trainee("Dmitry", "Medvedev", 2));
+                for (int i = 0; i < 100; i++) {
+                    trainees.add(new Trainee((new Integer(i)).toString(),(new Integer(i)).toString(), 4));
+                }
+            } catch (TraineeException e) {
+                e.printStackTrace();
+            }
+        for (Trainee trainee : trainees) {
+            System.out.println(trainee);
+        }
+
+        ListReverterTask89 listReverter = new ListReverterTask89(trainees);
+        ListShifterTask89 listShifter = new ListShifterTask89(trainees);
+        try {
+            listReverter.t.join();
+            listShifter.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void lesson115() {
+        Exchanger<String> exchanger = new Exchanger<>();
+        SpyGetter115 spyGetter = new SpyGetter115(exchanger);
+        SpySetter115 spySetter = new SpySetter115(exchanger);
+
+        try {
+            spySetter.join();
+            spyGetter.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void lesson114() {

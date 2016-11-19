@@ -430,8 +430,8 @@ public class Lesson7 {
     @Test
     public void task710() {
         System.out.println("\n================================ Task #7.10");
-//        List<Trainee> trainees = new ArrayList<>();
-        List<Trainee> trainees = new LinkedList<>();
+        List<Trainee> trainees = new ArrayList<>();
+//        List<Trainee> trainees = new LinkedList<>();
 
         try {
             trainees.add(new Trainee("Jeky", "Chan", 4));
