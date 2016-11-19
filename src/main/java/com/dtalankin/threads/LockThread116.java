@@ -5,16 +5,16 @@
 
 package com.dtalankin.threads;
 
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Lock;
 
 import static com.dtalankin.Print.print;
 
 public class LockThread116 {
     private String name;
-    private ReentrantLock lock;
+    private Lock lock;
     public Thread t;
 
-    public LockThread116(String name, ReentrantLock lock) {
+    public LockThread116(String name, Lock lock) {
         this.name = name;
         this.lock = lock;
         t = new Thread(runnable, name);

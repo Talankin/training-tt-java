@@ -6,12 +6,17 @@
 package com.dtalankin;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.dtalankin.figures.*;
 import com.dtalankin.threads.ProducerTask85;
+import com.dtalankin.threads.ReaderLockThread117;
+import com.dtalankin.threads.WriterLockThread117;
 
 public class Main {
     public static void main(String[] args) {
+
     }
 
     //рекурсия - факториал

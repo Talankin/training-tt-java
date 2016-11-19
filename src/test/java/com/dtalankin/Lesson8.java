@@ -12,7 +12,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.dtalankin.exceptions.TraineeException;
 import com.dtalankin.threads.*;
@@ -60,8 +63,23 @@ public class Lesson8 {
 
 
     @Test
+    public void lesson117() {
+        //for normally  working this lesson : copy+past block to Main.main() and run it.
+        ReadWriteLock lock = new ReentrantReadWriteLock();
+        for (int i = 0; i < 3; i++) {
+            new WriterLockThread117(lock);
+            new ReaderLockThread117(lock);
+            new WriterLockThread117(lock);
+            new ReaderLockThread117(lock);
+            new WriterLockThread117(lock);
+            new ReaderLockThread117(lock);
+        }
+    }
+
+
+    @Test
     public void lesson116() {
-        ReentrantLock lock = new ReentrantLock();
+        Lock lock = new ReentrantLock();
         LockThread116 lockThreadA = new LockThread116("A", lock);
         LockThreadB116 lockThreadB = new LockThreadB116("B", lock);
 
