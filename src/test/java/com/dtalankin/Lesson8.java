@@ -143,6 +143,22 @@ public class Lesson8 {
     }
 
     @Test
+    public void taskOne88() {
+        ReadWriteLock lock = new ReentrantReadWriteLock();
+        BookOne88 book = new BookOne88();
+
+        ReaderOne88 reader = new ReaderOne88(book, lock);
+        WriterOne88 writer = new WriterOne88(book, lock);
+
+        try {
+            reader.join();
+            writer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void task88() {
         Book88 book = new Book88();
         Reader88 reader = new Reader88(book);
