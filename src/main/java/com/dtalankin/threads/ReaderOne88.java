@@ -21,8 +21,8 @@ public class ReaderOne88 extends Thread{
     @Override
     public void run() {
         while (true) {
+            lock.readLock().lock();
             try {
-                lock.readLock().lock();
                 book.read();
             } finally {
                 lock.readLock().unlock();

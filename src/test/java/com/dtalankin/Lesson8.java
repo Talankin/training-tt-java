@@ -28,6 +28,11 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void test() {
+
+    }
+
+        @Test
     public void task89From710_1() {
 //        List<Trainee> trainees = new ArrayList<>();
         List<Trainee> listTrainees = new ArrayList<>();
@@ -59,6 +64,25 @@ public class Lesson8 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Test
+    public void lesson118() {
+        Buffer118 buffer = new Buffer118();
+        Producer118 producer = new Producer118(buffer);
+        Consumer118 consumer = new Consumer118(buffer);
+
+        producer.start();
+        consumer.start();
+
+        try {
+            producer.join();
+            consumer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

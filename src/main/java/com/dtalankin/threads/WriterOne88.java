@@ -22,8 +22,8 @@ public class WriterOne88 extends Thread{
     public void run() {
         int n = 0;
         while (true) {
+            lock.writeLock().lock();
             try {
-                lock.writeLock().lock();
                 book.write(n++);
             } finally {
                 lock.writeLock().unlock();
