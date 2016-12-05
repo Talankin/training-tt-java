@@ -7,7 +7,10 @@ package com.dtalankin;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Exchanger;
@@ -28,11 +31,55 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
-    public void test() {
+    public void task89From712() {
+        Queue<Trainee> queue = new PriorityQueue<>((t1, t2) -> t1.getRating().compareTo(t2.getRating()));
+        QueueWrapperTask89_712 queueWrapper = new QueueWrapperTask89_712(queue);
+
+        FacultyDirectorTask89_712 facultyDirector = new FacultyDirectorTask89_712(queueWrapper, "Thread 1");
+        FacultyDirectorTask89_712 facultyDirector1 = new FacultyDirectorTask89_712(queueWrapper, "Thread 2");
+        FacultyDirectorTask89_712 facultyDirector2 = new FacultyDirectorTask89_712(queueWrapper, "Thread 3");
+        FacultyDirectorTask89_712 facultyDirector3 = new FacultyDirectorTask89_712(queueWrapper, "Thread 4");
+
+        try {
+            facultyDirector.t.join();
+            facultyDirector1.t.join();
+            facultyDirector2.t.join();
+            facultyDirector3.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
-        @Test
+
+    @Test
+    public void task89From711() {
+        List<Integer> arrayList = new ArrayList<>();
+        List<Integer> linkedList = new LinkedList<>();
+
+        BlackFridayGoodsTask89_711 stock = new BlackFridayGoodsTask89_711(arrayList);
+        BuyerTask89_711 buyer = new BuyerTask89_711(stock, "Stock with ArrayList 1");
+        BuyerTask89_711 buyer1 = new BuyerTask89_711(stock, "Stock with ArrayList 2");
+        BuyerTask89_711 buyer2 = new BuyerTask89_711(stock, "Stock with ArrayList 3");
+
+        BlackFridayGoodsTask89_711 stock1 = new BlackFridayGoodsTask89_711(linkedList);
+        BuyerTask89_711 buyer3 = new BuyerTask89_711(stock1, "Stock with LinkedList 1");
+        BuyerTask89_711 buyer4 = new BuyerTask89_711(stock1, "Stock with LinkedList 2");
+        BuyerTask89_711 buyer5 = new BuyerTask89_711(stock1, "Stock with LinkedList 3");
+
+        try {
+            buyer.t.join();
+            buyer1.t.join();
+            buyer2.t.join();
+            buyer3.t.join();
+            buyer4.t.join();
+            buyer5.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void task89From710_1() {
 //        List<Trainee> trainees = new ArrayList<>();
         List<Trainee> listTrainees = new ArrayList<>();
