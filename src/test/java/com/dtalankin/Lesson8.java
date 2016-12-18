@@ -20,7 +20,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.dtalankin.exceptions.TraineeException;
 import com.dtalankin.threads.*;
 
 import static com.dtalankin.Print.*;
@@ -29,6 +28,23 @@ import com.dtalankin.trainees.Trainee;
 import org.junit.Test;
 
 public class Lesson8 {
+
+    @Test
+    public void task810() {
+        Lock lock = new ReentrantLock();
+        List<Integer> array = new ArrayList<>();
+
+        ProducerTask810 producer = new ProducerTask810(lock, array, "A");
+        RemoverTask810 consumer = new RemoverTask810(lock, array, "B");
+
+        try {
+            producer.t.join();
+            consumer.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void task89From712() {
@@ -78,41 +94,6 @@ public class Lesson8 {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void task89From710_1() {
-//        List<Trainee> trainees = new ArrayList<>();
-        List<Trainee> listTrainees = new ArrayList<>();
-//        List<Trainee> trainees = new LinkedList<>();
-        List<Trainee> trainees = Collections.synchronizedList(listTrainees);
-
-            try {
-//                trainees.add(new Trainee("Jeky", "Chan", 4));
-//                trainees.add(new Trainee("Silvester", "Stalone", 3));
-//                trainees.add(new Trainee("Chack", "Norris", 1));
-//                trainees.add(new Trainee("Dmitry", "Talankin", 4));
-//                trainees.add(new Trainee("Vladimir", "Putin", 4));
-//                trainees.add(new Trainee("Dmitry", "Medvedev", 2));
-                for (int i = 0; i < 100; i++) {
-                    trainees.add(new Trainee((new Integer(i)).toString(),(new Integer(i)).toString(), 4));
-                }
-            } catch (TraineeException e) {
-                e.printStackTrace();
-            }
-        for (Trainee trainee : trainees) {
-            System.out.println(trainee);
-        }
-
-        ListReverterTask89 listReverter = new ListReverterTask89(trainees);
-        ListShifterTask89 listShifter = new ListShifterTask89(trainees);
-        try {
-            listReverter.t.join();
-            listShifter.t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Test
     public void lesson118() {
