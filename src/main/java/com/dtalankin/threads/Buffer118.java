@@ -28,6 +28,7 @@ public class Buffer118 {
             print("put " + n);
             putIntoBuffer(n);
             isEmpty.signal();
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {

@@ -30,6 +30,21 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void task811() {
+        PingPongBufferTask811 buffer = new PingPongBufferTask811();
+        PingThreadTask811 ping = new PingThreadTask811(buffer);
+        PongThreadTask811 pong = new PongThreadTask811(buffer);
+
+        try {
+            ping.t.join();
+            pong.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
     public void task810() {
         Lock lock = new ReentrantLock();
         List<Integer> array = new ArrayList<>();

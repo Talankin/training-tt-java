@@ -9,8 +9,6 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import sun.plugin2.message.BestJREAvailableMessage;
-
 class BoundedBuffer {
     final private Lock lock = new ReentrantLock();
     final private Condition notFull = lock.newCondition();
@@ -27,6 +25,7 @@ class BoundedBuffer {
                 notFull.await();
             putIntoBuffer(x);
             notEmpty.signal();
+            Thread.sleep(5000);
         } finally {
             lock.unlock();
         }
@@ -96,7 +95,6 @@ class Consumer extends Thread {
     public void run() {
         try {
             for (int i = 0; i < objectsToGet; i++) {
-                Thread.sleep(5000);
                 System.out.println("get " + buffer.take());
             }
         } catch (InterruptedException e) {

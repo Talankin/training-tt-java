@@ -27,8 +27,8 @@ public class RemoverTask810 {
     private Runnable runnable = () -> {
         int n = 10000;
         for (int i = 0; i < n; i++) {
+            lock.lock();
             try {
-                lock.lock();
                 int num = (int) (Math.random() * array.size());
                 if (array.size() > 0) {
                     array.remove(num);
