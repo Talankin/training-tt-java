@@ -30,6 +30,22 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void task812() {
+        ConcurrentHashMapTask812 map = new ConcurrentHashMapTask812();
+        ProducerTask812 prod = new ProducerTask812(map);
+        ProducerTask812 prod1 = new ProducerTask812(map);
+        ProducerTask812 prod2 = new ProducerTask812(map);
+
+        try {
+            prod.t.join();
+            prod1.t.join();
+            prod2.t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void task811() {
         PingPongBufferTask811 buffer = new PingPongBufferTask811();
         PingThreadTask811 ping = new PingThreadTask811(buffer);
