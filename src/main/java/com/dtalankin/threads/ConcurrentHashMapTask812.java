@@ -16,19 +16,23 @@ public class ConcurrentHashMapTask812 {
 
     public void put(String key, String value) {
         lock.writeLock().lock();
+        System.out.println("Put LOCKED : " + value);
         try {
             map.put(key, value);
-            System.out.println("Put : " + key + " " + value);
+            System.out.println("   Put : " + key + " " + value);
         } finally {
+            System.out.println("Put UNLOCKED : " + value);
             lock.writeLock().unlock();
         }
     }
 
-    public void get(String key) {
+    public void get(String key, String name) {
         lock.readLock().lock();
+        System.out.println("Get LOCKED : " + name);
         try {
-            System.out.println("Put : " + key + " " + map.get(key));
+            System.out.println("   Get : " + key + " " + map.get(key));
         } finally {
+            System.out.println("Get UNLOCKED : " + name);
             lock.readLock().unlock();
         }
     }

@@ -32,14 +32,20 @@ public class Lesson8 {
     @Test
     public void task812() {
         ConcurrentHashMapTask812 map = new ConcurrentHashMapTask812();
-        ProducerTask812 prod = new ProducerTask812(map);
-        ProducerTask812 prod1 = new ProducerTask812(map);
-        ProducerTask812 prod2 = new ProducerTask812(map);
+        ProducerTask812 prod = new ProducerTask812(map, "A");
+        ConsumerTask812 cons = new ConsumerTask812(map, "B");
+        ProducerTask812 prod1 = new ProducerTask812(map, "C");
+        ConsumerTask812 cons1 = new ConsumerTask812(map, "D");
+        ProducerTask812 prod2 = new ProducerTask812(map, "E");
+        ConsumerTask812 cons2 = new ConsumerTask812(map, "F");
 
         try {
             prod.t.join();
+            cons.t.join();
             prod1.t.join();
+            cons1.t.join();
             prod2.t.join();
+            cons2.t.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
