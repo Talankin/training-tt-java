@@ -30,6 +30,28 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void task813() {
+        FormatterTask813 formatter = new FormatterTask813("yyyy.MM.dd");
+        ThreadTask813 t1 = new ThreadTask813(formatter, "A", "h:mm a");
+        ThreadTask813 t2 = new ThreadTask813(formatter, "B", "K:mm a, z");
+        ThreadTask813 t3 = new ThreadTask813(formatter, "C", "EEE, d MMM yyyy HH:mm:ss Z");
+        ThreadTask813 t4 = new ThreadTask813(formatter, "D", "yyMMddHHmmssZ");
+        ThreadTask813 t5 = new ThreadTask813(formatter, "E", "yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @Test
     public void task812() {
         ConcurrentHashMapTask812 map = new ConcurrentHashMapTask812();
         ProducerTask812 prod = new ProducerTask812(map, "A");
