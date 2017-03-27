@@ -30,6 +30,15 @@ import org.junit.Test;
 public class Lesson8 {
 
     @Test
+    public void task814() {
+        MessageTask814 message = new MessageTask814("", "", "", "");
+
+        TransportTask814 transport = new TransportTask814();
+        transport.send(message);
+    }
+
+
+    @Test
     public void task813() {
         FormatterTask813 formatter = new FormatterTask813("yyyy.MM.dd");
         ThreadTask813 t1 = new ThreadTask813(formatter, "A", "h:mm a");
