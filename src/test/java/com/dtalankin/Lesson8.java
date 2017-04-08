@@ -5,6 +5,10 @@
 
 package com.dtalankin;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,6 +18,10 @@ import java.util.Queue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Exchanger;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -28,13 +36,76 @@ import com.dtalankin.trainees.Trainee;
 import org.junit.Test;
 
 public class Lesson8 {
-
     @Test
     public void task814() {
-        MessageTask814 message = new MessageTask814("", "", "", "");
+        List<String> addresses = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/com/dtalankin/Lesson8/addresses.txt"))) {
+            String address;
+            while ((address = br.readLine()) != null) {
+                addresses.add(address);
+            }
+            Collections.shuffle(addresses);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        MessageTask814 message = new MessageTask814("", "from dimir", "eat more french cookies", "this is a body. this is a big body");
         TransportTask814 transport = new TransportTask814();
-        transport.send(message);
+        ExecutorService es = Executors.newFixedThreadPool(2);
+        for (String address : addresses) {
+            message.setEmailAddress(address);
+            es.execute(new ThreadTask814(transport, message));
+        }
+
+//        Future<?> f1,f2,f3,f4;
+//        f1 = es.submit(new ThreadTask814(transport, message));
+//        f2 = es.submit(new ThreadTask814(transport, message));
+//        f3 = es.submit(new ThreadTask814(transport, message));
+//        f4 = es.submit(new ThreadTask814(transport, message));
+
+//        try {
+//            f1.get();
+//            f2.get();
+//            f3.get();
+//            f4.get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+        es.shutdown();
+        System.out.println("Done");
+    }
+
+
+    @Test
+    public void lesson120() {
+        ExecutorService es = Executors.newFixedThreadPool(3);
+        Future<Integer> f1;
+        Future<Double> f2;
+        Future<Integer> f3;
+
+        System.out.println("go go go... ");
+
+        f1 = es.submit(new Factorial120(9));
+        f2 = es.submit(new Hypot120(4,5));
+        f3 = es.submit(new Sum120(8));
+
+        try {
+            System.out.println(f1.get());
+            System.out.println("f1 is stoped ");
+            System.out.println(f2.get());
+            System.out.println("f2 is stoped ");
+            System.out.println(f3.get());
+            System.out.println("f3 is stoped ");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        es.shutdown();
     }
 
 
