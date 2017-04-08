@@ -39,6 +39,10 @@ public class Lesson8 {
     @Test
     public void task814() {
         List<String> addresses = new ArrayList<>();
+        List<Future<?>> futures = new ArrayList<>();
+        ExecutorService es = Executors.newFixedThreadPool(2);
+        TransportTask814 transport = new TransportTask814();
+
         try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/com/dtalankin/Lesson8/addresses.txt"))) {
             String address;
             while ((address = br.readLine()) != null) {
@@ -51,30 +55,21 @@ public class Lesson8 {
             e.printStackTrace();
         }
 
-        MessageTask814 message = new MessageTask814("", "from dimir", "eat more french cookies", "this is a body. this is a big body");
-        TransportTask814 transport = new TransportTask814();
-        ExecutorService es = Executors.newFixedThreadPool(2);
         for (String address : addresses) {
-            message.setEmailAddress(address);
-            es.execute(new ThreadTask814(transport, message));
+            MessageTask814 message = new MessageTask814(address, "from dimir", "eat more french cookies", "this is a body. this is a big body");
+            Future<?> future = es.submit(new ThreadTask814(transport, message));
+            futures.add(future);
         }
 
-//        Future<?> f1,f2,f3,f4;
-//        f1 = es.submit(new ThreadTask814(transport, message));
-//        f2 = es.submit(new ThreadTask814(transport, message));
-//        f3 = es.submit(new ThreadTask814(transport, message));
-//        f4 = es.submit(new ThreadTask814(transport, message));
-
-//        try {
-//            f1.get();
-//            f2.get();
-//            f3.get();
-//            f4.get();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            for (Future<?> f : futures) {
+                f.get();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         es.shutdown();
         System.out.println("Done");
     }
