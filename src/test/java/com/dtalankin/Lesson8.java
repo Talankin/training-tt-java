@@ -36,8 +36,53 @@ import com.dtalankin.trainees.Trainee;
 import org.junit.Test;
 
 public class Lesson8 {
+    /**
+     * Send messages to real smtp server
+     */
     @Test
-    public void task814() {
+    public void task814_2() {
+        List<String> addresses = new ArrayList<>();
+        List<Future<?>> futures = new ArrayList<>();
+        ExecutorService es = Executors.newFixedThreadPool(2);
+        TransportTask814 transport = new TransportTask814();
+
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/com/dtalankin/Lesson8/addresses.txt"))) {
+            String address;
+            while ((address = br.readLine()) != null) {
+                addresses.add(address);
+            }
+            Collections.shuffle(addresses);
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String address : addresses) {
+            MessageTask814 message = new MessageTask814(address, "from dimir", "eat more french cookies", "this is a body. this is a big body");
+            Future<?> future = es.submit(new ThreadTask814(transport, message));
+            futures.add(future);
+        }
+
+        try {
+            for (Future<?> f : futures) {
+                f.get();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        es.shutdown();
+        System.out.println("Done");
+    }
+
+
+    /**
+     * Send messages to file
+     */
+    @Test
+    public void task814_1() {
         List<String> addresses = new ArrayList<>();
         List<Future<?>> futures = new ArrayList<>();
         ExecutorService es = Executors.newFixedThreadPool(2);

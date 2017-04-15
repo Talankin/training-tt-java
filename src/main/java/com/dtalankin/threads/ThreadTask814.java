@@ -19,6 +19,7 @@ public class ThreadTask814 implements Runnable {
 
     @Override
     public void run() {
-        transport.sendToFile(message);
+        transport.sendToSmtpSSL(message);
+//        transport.sendToFile(message);
     }
 }
